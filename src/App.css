@@ -225,7 +225,11 @@ body {
   transform: scale(1.05);
   background: linear-gradient(135deg, #00b3d6, #00e676);
 }
-
+.expense-form input,
+.expense-form button {
+  min-width: 150px;
+  flex-shrink: 0;
+}
 /* ===============================
    Expense Filters
 ================================== */
