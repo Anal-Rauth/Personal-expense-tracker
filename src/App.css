@@ -1,0 +1,478 @@
+/* ===============================
+   Global Styles
+================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #141420, #1f1f2e, #29293f);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Container for the home page */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* ===============================
+   Navbar
+================================== */
+.navbar {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-left {
+  flex: 1;
+  text-align: left;
+}
+
+.navbar-center {
+  flex: 1;
+  text-align: center;
+}
+
+.navbar-right {
+  flex: 1;
+  text-align: right;
+}
+
+.navbar h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00d4ff;
+}
+
+/* Styled Welcome Text */
+.welcome-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #00d4ff, #00ff88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+  text-align: center;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.welcome-text:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+}
+
+/* Responsive Welcome Text */
+@media (max-width: 768px) {
+  .welcome-text {
+    font-size: 1.1rem;
+    padding: 3px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-text {
+    font-size: 1rem;
+    padding: 2px 6px;
+  }
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #ff4d6d, #ff1f4b);
+  border: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 3px 10px rgba(255, 77, 109, 0.4);
+}
+
+.logout-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff1f4b, #e60035);
+}
+
+/* ===============================
+   Dashboard Section
+================================== */
+.dashboard-section {
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* ===============================
+   Budget Tracker
+================================== */
+.budget-tracker {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.budget-tracker h3 {
+  font-size: 1.5rem;
+  color: #00d4ff;
+  margin-bottom: 0.5rem;
+}
+
+.budget-tracker h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #00ff88;
+}
+
+.budget-input {
+  width: 100%;
+  max-width: 200px;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: none;
+  margin: 0.5rem 0 1rem;
+  text-align: center;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.budget-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #00d4ff, #00ff88);
+  transition: width 0.4s ease;
+}
+
+/* ===============================
+   Expense Form
+================================== */
+.expense-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.expense-form input,
+.expense-form button {
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+.expense-form input {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.expense-form input:focus {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.expense-form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.expense-form button {
+  background: linear-gradient(135deg, #00d4ff, #00ff88);
+  font-weight: bold;
+  color: #111;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.expense-form button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #00b3d6, #00e676);
+}
+
+/* ===============================
+   Expense Filters
+================================== */
+.expense-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.expense-filters button {
+  background: rgba(255, 255, 255, 0.07);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.expense-filters button:hover {
+  background: rgba(0, 212, 255, 0.2);
+  color: #00d4ff;
+}
+
+/* ===============================
+   Expense List
+================================== */
+.expense-list {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.expense-list h2 {
+  color: #ffcc00;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.expense-list ul {
+  list-style-type: disc;
+  list-style-position: outside;
+  padding-left: 1.5rem;
+}
+
+.expense-list ul li {
+  display: list-item;
+  margin-bottom: 0.3rem;
+}
+
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.expense-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-2px);
+}
+
+.expense-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.expense-details {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.expense-details .amount {
+  color: #00ff88;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.expense-details .category {
+  color: #00d4ff;
+  font-size: 0.95rem;
+}
+
+.expense-details .date {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.expense-details .description {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+  word-break: break-word;
+}
+
+/* Expense Actions */
+.expense-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.expense-actions button {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.month-selector {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #1e1e2f;
+  color: white;
+  font-size: 14px;
+}
+
+.month-selector:focus {
+  outline: 2px solid #00d9ff;
+}
+
+.edit-btn {
+  background: linear-gradient(135deg, #00d4ff, #00ff88);
+  color: #111;
+}
+
+.edit-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #00b3d6, #00e676);
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ff4d6d, #ff1f4b);
+  color: #fff;
+}
+
+.delete-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff1f4b, #e60035);
+}
+
+/* ===============================
+   Expense Charts
+================================== */
+.expense-charts {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.expense-charts h3,
+.expense-charts h4 {
+  color: #ffcc00;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.expense-charts .chart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.expense-charts .chart-box {
+  flex: 1;
+  min-width: 200px;
+  max-width: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ===============================
+   Responsive Design
+================================== */
+@media (min-width: 768px) {
+  .dashboard-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .expense-form {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .expense-charts .chart-container {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .expense-form {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+/* Responsive Navbar for Mobile */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.8rem;
+    gap: 0.5rem;
+  }
+
+  .navbar-left,
+  .navbar-center,
+  .navbar-right {
+    flex: unset;
+    width: 100%;
+    text-align: center;
+  }
+
+  .welcome-text {
+    font-size: 1rem;
+    padding: 2px 6px;
+    display: block;
+    word-break: break-word;
+  }
+
+  .logout-btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
