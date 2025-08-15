@@ -13,9 +13,7 @@ Hosting: Vercel
 
 📌 Project Type
 
-Type: Full-Stack Web Application
-
-Technology Stack: React.js (Frontend) + Firebase (Backend/Database)
+Type: Serverless Full-Stack Web Application (React + Firebase)
 
 Category: Personal Finance Management
 
