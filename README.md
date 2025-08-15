@@ -74,7 +74,5 @@ Recurring Expenses – Automatically add regular expenses like rent, subscriptio
 
 AI-based Spending Insights – Suggest ways to save money.
 
-Dark Mode – Enhance UI with theme customization.
-
 Multi-Currency Support – For users from different countries.
 
