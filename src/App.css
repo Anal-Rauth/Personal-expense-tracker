@@ -231,7 +231,7 @@ body {
   flex-shrink: 0;
 }
 /* ===============================
-   Expense Filters
+  Expense Filters
 ================================== */
 .expense-filters {
   display: flex;
