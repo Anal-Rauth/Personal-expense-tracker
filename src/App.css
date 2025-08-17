@@ -1,17 +1,116 @@
 /* ===============================
+   Design Tokens (Dark Theme)
+================================== */
+:root {
+  /* Colors */
+  --bg-grad-1: #141420;
+  --bg-grad-2: #1f1f2e;
+  --bg-grad-3: #29293f;
+
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.7);
+
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-strong: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.15);
+
+  --primary-1: #00d4ff;
+  --primary-2: #00ff88;
+  --primary-1-d: #00b3d6;
+  --primary-2-d: #00e676;
+
+  --warn-1: #ff4d6d;
+  --warn-2: #ff1f4b;
+  --warn-2-d: #e60035;
+
+  --accent-gold: #ffcc00;
+
+  --surface-1: #111218;
+  --surface-2: #1e1e2f;
+  --surface-3: rgba(0, 0, 0, 0.1);
+
+  --border-subtle: rgba(255, 255, 255, 0.1);
+
+  /* Effects */
+  --shadow-1: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --shadow-3: 0 3px 12px rgba(0, 0, 0, 0.2);
+
+  /* Radius & Sizing */
+  --radius-lg: 12px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+
+  /* Motion */
+  --transition-fast: 0.2s ease;
+  --transition: 0.3s ease;
+  --transition-slow: 0.4s ease;
+
+  /* Typography */
+  --font-title: clamp(1.25rem, 1vw + 1rem, 1.6rem);
+  --font-subtitle: clamp(1.1rem, 0.8vw + 0.9rem, 1.35rem);
+  --font-base: 1rem;
+  --font-small: 0.9rem;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===============================
    Global Styles
 ================================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: linear-gradient(135deg, #141420, #1f1f2e, #29293f);
-  color: #fff;
+  background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2), var(--bg-grad-3));
+  color: var(--text);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Better focus visibility across the app */
+:focus-visible {
+  outline: 2px solid var(--primary-1);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Subtle custom scrollbar on desktop */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-1) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary-1), var(--primary-2));
+    border-radius: 999px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
 
 /* Container for the home page */
@@ -20,6 +119,16 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+  width: 100%;
+}
+
+/* Constrain dashboard width for readability on very wide screens */
+.dashboard-section {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
 /* ===============================
@@ -28,41 +137,51 @@ body {
 .navbar {
   width: 100%;
   padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-1);
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.navbar-left {
+@supports not ((-webkit-backdrop-filter: blur(12px)) or (backdrop-filter: blur(12px))) {
+  .navbar {
+    background: rgba(255, 255, 255, 0.06);
+    /* graceful fallback */
+  }
+}
+
+.navbar-left,
+.navbar-center,
+.navbar-right {
   flex: 1;
   text-align: left;
 }
 
 .navbar-center {
-  flex: 1;
   text-align: center;
 }
 
 .navbar-right {
-  flex: 1;
   text-align: right;
 }
 
 .navbar h1 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #00d4ff;
+  font-size: var(--font-title);
+  font-weight: 700;
+  color: var(--primary-1);
+  letter-spacing: 0.2px;
 }
 
 /* Styled Welcome Text */
 .welcome-text {
   font-size: 1.3rem;
   font-weight: 600;
-  background: linear-gradient(90deg, #00d4ff, #00ff88);
+  background: linear-gradient(90deg, var(--primary-1), var(--primary-2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 0.5px;
@@ -70,12 +189,13 @@ body {
   display: inline-block;
   padding: 4px 10px;
   border-radius: 6px;
-  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  transition: transform var(--transition), text-shadow var(--transition);
+  line-height: 1.2;
 }
 
 .welcome-text:hover {
-  transform: scale(1.05);
-  text-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+  transform: translateY(-1px);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
 }
 
 /* Responsive Welcome Text */
@@ -90,92 +210,87 @@ body {
   .welcome-text {
     font-size: 1rem;
     padding: 2px 6px;
+    word-break: break-word;
   }
 }
 
 .logout-btn {
-  background: linear-gradient(135deg, #ff4d6d, #ff1f4b);
+  background: linear-gradient(135deg, var(--warn-1), var(--warn-2));
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
   color: white;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: 0.3s ease;
-  box-shadow: 0 3px 10px rgba(255, 77, 109, 0.4);
+  transition: transform var(--transition-fast), background var(--transition);
+  box-shadow: 0 3px 10px rgba(255, 77, 109, 0.35);
+  min-height: 40px;
+  /* touch friendly */
 }
 
 .logout-btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #ff1f4b, #e60035);
-}
-
-/* ===============================
-   Dashboard Section
-================================== */
-.dashboard-section {
-  max-width: 1200px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  transform: translateY(-1px) scale(1.03);
+  background: linear-gradient(135deg, var(--warn-2), var(--warn-2-d));
 }
 
 /* ===============================
    Budget Tracker
 ================================== */
 .budget-tracker {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass);
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-2);
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .budget-tracker h3 {
-  font-size: 1.5rem;
-  color: #00d4ff;
+  font-size: var(--font-title);
+  color: var(--primary-1);
   margin-bottom: 0.5rem;
 }
 
 .budget-tracker h2 {
-  font-size: 1.2rem;
+  font-size: var(--font-subtitle);
   margin-bottom: 0.5rem;
-  color: #00ff88;
+  color: var(--primary-2);
 }
 
 .budget-input {
   width: 100%;
-  max-width: 200px;
-  padding: 0.6rem;
-  border-radius: 8px;
-  border: none;
-  margin: 0.5rem 0 1rem;
+  max-width: 220px;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  margin: 0.5rem auto 1rem;
   text-align: center;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  font-size: var(--font-base);
+  background: var(--glass-strong);
+  color: var(--text);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+  min-height: 42px;
 }
 
 .budget-input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+  background: var(--glass-hover);
+  border-color: rgba(0, 212, 255, 0.45);
+  box-shadow: 0 0 0 6px rgba(0, 212, 255, 0.12);
 }
 
 .progress-bar {
   width: 100%;
   height: 12px;
-  background: #333;
+  background: #2a2a3a;
   border-radius: 10px;
   overflow: hidden;
 }
 
 .progress {
   height: 100%;
-  background: linear-gradient(90deg, #00d4ff, #00ff88);
-  transition: width 0.4s ease;
+  background: linear-gradient(90deg, var(--primary-1), var(--primary-2));
+  transition: width var(--transition-slow);
 }
 
 /* ===============================
@@ -185,89 +300,112 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass);
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .expense-form input,
 .expense-form button {
-  padding: 0.6rem;
+  padding: 0.65rem 0.75rem;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   outline: none;
+  min-height: 42px;
+  /* touch-friendly */
 }
 
 .expense-form input {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--glass-strong);
   color: white;
-  transition: background 0.3s ease;
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+  border: 1px solid transparent;
 }
 
 .expense-form input:focus {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--glass-hover);
+  border-color: rgba(0, 212, 255, 0.45);
+  box-shadow: 0 0 0 6px rgba(0, 212, 255, 0.12);
 }
 
 .expense-form input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
 }
 
 .expense-form button {
-  background: linear-gradient(135deg, #00d4ff, #00ff88);
-  font-weight: bold;
+  background: linear-gradient(135deg, var(--primary-1), var(--primary-2));
+  font-weight: 700;
   color: #111;
   cursor: pointer;
-  transition: 0.3s;
+  transition: transform var(--transition-fast), background var(--transition);
 }
 
 .expense-form button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #00b3d6, #00e676);
+  transform: translateY(-1px) scale(1.03);
+  background: linear-gradient(135deg, var(--primary-1-d), var(--primary-2-d));
 }
+
+/* Keep original min-width intent but avoid overflow on very small screens */
 .expense-form input,
 .expense-form button {
   min-width: 150px;
   flex-shrink: 0;
 }
+
+@media (max-width: 380px) {
+
+  .expense-form input,
+  .expense-form button {
+    min-width: 120px;
+  }
+}
+
 /* ===============================
   Expense Filters
 ================================== */
 .expense-filters {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
 .expense-filters button {
   background: rgba(255, 255, 255, 0.07);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-sm);
   color: white;
   cursor: pointer;
-  transition: 0.3s;
+  transition: transform var(--transition-fast), background var(--transition), border-color var(--transition);
+  min-height: 40px;
 }
 
-.expense-filters button:hover {
-  background: rgba(0, 212, 255, 0.2);
-  color: #00d4ff;
+.expense-filters button:hover,
+.expense-filters button:focus-visible {
+  background: rgba(0, 212, 255, 0.18);
+  border-color: rgba(0, 212, 255, 0.35);
+  color: var(--primary-1);
+  transform: translateY(-1px);
 }
 
 /* ===============================
    Expense List
 ================================== */
 .expense-list {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  background: var(--glass);
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .expense-list h2 {
-  color: #ffcc00;
-  margin-bottom: 0.5rem;
+  color: var(--accent-gold);
+  margin-bottom: 0.6rem;
   text-align: center;
+  font-size: var(--font-subtitle);
 }
 
 .expense-list ul {
@@ -278,25 +416,25 @@ body {
 
 .expense-list ul li {
   display: list-item;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
 }
 
 .expense-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.2rem;
   padding: 1rem 1.2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-subtle);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.03);
   margin-bottom: 1rem;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background var(--transition), transform var(--transition-fast);
 }
 
 .expense-item:hover {
   background: rgba(255, 255, 255, 0.07);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .expense-item:last-child {
@@ -308,30 +446,26 @@ body {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
-  gap: 0.4rem;
+  gap: 0.35rem;
   flex: 1;
 }
 
 .expense-details .amount {
-  color: #00ff88;
-  font-weight: bold;
-  font-size: 1.1rem;
+  color: var(--primary-2);
+  font-weight: 700;
+  font-size: 1.05rem;
 }
 
 .expense-details .category {
-  color: #00d4ff;
+  color: var(--primary-1);
   font-size: 0.95rem;
 }
 
-.expense-details .date {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.85rem;
-}
-
+.expense-details .date,
 .expense-details .description {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   font-size: 0.85rem;
-  margin-top: 0.2rem;
+  margin-top: 0.1rem;
   word-break: break-word;
 }
 
@@ -344,68 +478,75 @@ body {
 }
 
 .expense-actions button {
-  padding: 0.4rem 0.8rem;
+  padding: 0.45rem 0.85rem;
   border-radius: 6px;
   border: none;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: transform var(--transition-fast), background var(--transition);
   font-size: 0.85rem;
+  min-height: 36px;
 }
 
 .month-selector {
   width: 100%;
-  padding: 8px;
+  padding: 8px 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  border: none;
-  background-color: #1e1e2f;
+  border: 1px solid transparent;
+  background-color: var(--surface-2);
   color: white;
   font-size: 14px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  min-height: 40px;
 }
 
 .month-selector:focus {
-  outline: 2px solid #00d9ff;
+  outline: none;
+  border-color: rgba(0, 217, 255, 0.45);
+  box-shadow: 0 0 0 6px rgba(0, 217, 255, 0.12);
 }
 
 .edit-btn {
-  background: linear-gradient(135deg, #00d4ff, #00ff88);
+  background: linear-gradient(135deg, var(--primary-1), var(--primary-2));
   color: #111;
 }
 
 .edit-btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #00b3d6, #00e676);
+  transform: translateY(-1px) scale(1.02);
+  background: linear-gradient(135deg, var(--primary-1-d), var(--primary-2-d));
 }
 
 .delete-btn {
-  background: linear-gradient(135deg, #ff4d6d, #ff1f4b);
+  background: linear-gradient(135deg, var(--warn-1), var(--warn-2));
   color: #fff;
 }
 
 .delete-btn:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #ff1f4b, #e60035);
+  transform: translateY(-1px) scale(1.02);
+  background: linear-gradient(135deg, var(--warn-2), var(--warn-2-d));
 }
 
 /* ===============================
    Expense Charts
 ================================== */
 .expense-charts {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass);
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .expense-charts h3,
 .expense-charts h4 {
-  color: #ffcc00;
+  color: var(--accent-gold);
   text-align: center;
   margin-bottom: 1rem;
+  font-size: var(--font-subtitle);
 }
 
 .expense-charts .chart-container {
@@ -418,10 +559,12 @@ body {
   flex: 1;
   min-width: 200px;
   max-width: 100%;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--surface-3);
   padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-3);
+  overflow: hidden;
+  /* avoids chart overflow on small screens */
 }
 
 /* ===============================
@@ -450,13 +593,14 @@ body {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
 /* Responsive Navbar for Mobile */
 @media (max-width: 600px) {
   .navbar {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 0.8rem;
+    padding: 0.9rem;
     gap: 0.5rem;
   }
 
@@ -476,7 +620,23 @@ body {
   }
 
   .logout-btn {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.9rem;
+  }
+}
+
+/* Small phones & very narrow widths */
+@media (max-width: 360px) {
+
+  .expense-list,
+  .expense-charts,
+  .budget-tracker,
+  .expense-form {
+    padding: 0.85rem;
+  }
+
+  .expense-item {
+    padding: 0.85rem 0.95rem;
+    gap: 0.9rem;
   }
 }

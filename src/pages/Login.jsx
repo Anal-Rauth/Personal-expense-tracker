@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
-import { auth, googleProvider } from "../firebase/firebase";
+import { auth, signInWithGoogle } from "../firebase/firebase"; // ✅ use wrapper
 import {
     signInWithEmailAndPassword,
-    signInWithPopup,
     fetchSignInMethodsForEmail,
 } from "firebase/auth";
 
@@ -30,7 +29,7 @@ export default function Login() {
                 const methods = await fetchSignInMethodsForEmail(auth, email);
                 if (methods.includes("google.com")) {
                     setWarning(
-                        "This email is registered with Google sign-in. It is recommended to use Google login."
+                        "This email is registered with Google sign-in. Please use Google login."
                     );
                 } else {
                     alert(err.message || "Login failed.");
@@ -46,15 +45,15 @@ export default function Login() {
     const handleGoogleLogin = async () => {
         try {
             setLoading(true);
-            await signInWithPopup(auth, googleProvider);
-            localStorage.setItem("isLoggedIn", "true");
-            localStorage.setItem("loginTimestamp", Date.now().toString());
-            navigate("/");
+            const user = await signInWithGoogle(); // ✅ use safe wrapper
+            if (user) {
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("loginTimestamp", Date.now().toString());
+                navigate("/");
+            }
         } catch (error) {
-            if (error.code === "auth/popup-closed-by-user") {
-                alert("You closed the login popup before completing sign-in.");
-            } else if (error.code === "auth/account-exists-with-different-credential") {
-                const email = error.customData.email;
+            if (error.code === "auth/account-exists-with-different-credential") {
+                const email = error.customData?.email;
                 const methods = await fetchSignInMethodsForEmail(auth, email);
                 if (methods.includes("password")) {
                     alert(

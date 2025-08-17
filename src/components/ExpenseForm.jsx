@@ -40,13 +40,19 @@ export default function ExpenseForm({ onAdd, editData, onUpdate, cancelEdit }) {
                 required
             />
 
-            {/* Date field with placeholder effect */}
+            {/* Date field with one-click calendar */}
             <input
                 type={form.date ? "date" : "text"}
                 name="date"
                 value={form.date}
                 onChange={handleChange}
-                onFocus={(e) => e.target.type = "date"}
+                onFocus={(e) => {
+                    e.target.type = "date";
+                    // ✅ instantly open calendar if supported
+                    if (typeof e.target.showPicker === "function") {
+                        e.target.showPicker();
+                    }
+                }}
                 onBlur={(e) => {
                     if (!form.date) e.target.type = "text";
                 }}

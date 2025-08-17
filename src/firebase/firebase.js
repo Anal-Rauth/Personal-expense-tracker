@@ -5,6 +5,7 @@ import {
     setPersistence,
     browserLocalPersistence,
     GoogleAuthProvider,
+    signInWithPopup,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -29,6 +30,23 @@ setPersistence(auth, browserLocalPersistence);
 
 const googleProvider = new GoogleAuthProvider();
 
-export { app, auth, googleProvider };
+/**
+ * ✅ Safe wrapper for Google popup login
+ * Prevents "Cross-Origin-Opener-Policy" error when checking popup.closed
+ */
+export async function signInWithGoogle() {
+    try {
+        const result = await signInWithPopup(auth, googleProvider);
+        return result.user;
+    } catch (error) {
+        // Wrap popup closed error safely
+        if (error.code === "auth/popup-closed-by-user") {
+            console.warn("Popup closed by user");
+            return null;
+        }
+        throw error;
+    }
+}
 
-export const db = getFirestore(app); 
+export { app, auth, googleProvider };
+export const db = getFirestore(app);
